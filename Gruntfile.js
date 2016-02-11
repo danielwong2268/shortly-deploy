@@ -3,6 +3,11 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
+      dist: {
+        src: ['public/client/**/*.js'],
+        dest: 'public/dist/client-concat.js'
+      }
+
     },
 
     mochaTest: {
@@ -21,11 +26,17 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      my_target: {
+        files: {
+          'public/dist/client-uglify.js': ['public/dist/client-concat.js']
+        }
+      }
     },
 
     eslint: {
       target: [
-        // Add list of files to lint here
+        '**/*.js',
+        '**/*.ejs'
       ]
     },
 
@@ -76,6 +87,7 @@ module.exports = function(grunt) {
 
     grunt.task.run([ 'watch' ]);
   });
+
 
 
   grunt.registerTask('upload', function(n) {
